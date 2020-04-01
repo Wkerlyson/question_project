@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:question_project/question.dart';
+import 'package:question_project/reply.dart';
 
 main() => runApp(QuestionApp());
 
@@ -21,9 +22,25 @@ class _QuestionAppState extends State<QuestionApp> {
   @override
   Widget build(BuildContext context) {
     final questions = [
-      'Qual a sua cor favorita?',
-      'Qual é o seu animal favorito:'
+      {
+        'text': 'Qual a sua cor favorita?',
+        'replies': ['Preto', 'Vermelho', 'Verde', 'Branco']
+      },
+      {
+        'text': 'Qual é o seu animal favorito?',
+        'replies': ['Coelho', 'Cobra', 'Elefante', 'Leão']
+      },
+      {
+        'text': 'Qual é o seu instrutor favorito?',
+        'replies': ['Maria', 'João', 'Leo', 'Pedro']
+      }
     ];
+
+    List<Widget> replies = [];
+
+    for (var textReply in questions[_selectedQuestion]['replies']) {
+      replies.add(Reply(textReply, _reply));
+    }
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -33,19 +50,8 @@ class _QuestionAppState extends State<QuestionApp> {
         ),
         body: Column(
           children: <Widget>[
-            Question(questions[_selectedQuestion]),
-            RaisedButton(
-              child: Text('Resposta 1'),
-              onPressed: _reply,
-            ),
-            RaisedButton(
-              child: Text('Resposta 2'),
-              onPressed: _reply,
-            ),
-            RaisedButton(
-              child: Text('Resposta 3'),
-              onPressed: _reply,
-            ),
+            Question(questions[_selectedQuestion]['text']),
+            ...replies
           ],
         ),
       ),
