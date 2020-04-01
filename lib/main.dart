@@ -36,11 +36,7 @@ class _QuestionAppState extends State<QuestionApp> {
       }
     ];
 
-    List<Widget> replies = [];
-
-    for (var textReply in questions[_selectedQuestion]['replies']) {
-      replies.add(Reply(textReply, _reply));
-    }
+    List<String> replies = questions[_selectedQuestion]['replies'];
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -51,7 +47,7 @@ class _QuestionAppState extends State<QuestionApp> {
         body: Column(
           children: <Widget>[
             Question(questions[_selectedQuestion]['text']),
-            ...replies
+            ...replies.map((t) => Reply(t, _reply)).toList()
           ],
         ),
       ),
